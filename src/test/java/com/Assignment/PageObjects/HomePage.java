@@ -61,7 +61,10 @@ public class HomePage extends AbstractClass {
 	@FindBy(id = "test-6-div")
 	public WebElement test6Div;
 	
-
+	public void goTo() {
+		driver.get(System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html");
+	}
+	
 	public void checkValuesInListGroup() {
 
 		Assert.assertEquals(listItems.size(), 3);

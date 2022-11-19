@@ -2,8 +2,7 @@ package com.Assignment.TestComponents;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Duration;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
@@ -13,23 +12,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
-
+import com.Assignment.PageObjects.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	
-	public String baseURL = System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html";
 	public WebDriver driver;
-	public static ExtentReports extent;
-	public static ExtentTest test;
 
-	@BeforeMethod
-	public void setup() throws IOException {
+	public ThreadLocal<WebDriver> threadSafeDriver = new ThreadLocal<>();
+	public HomePage homePage;
+
+	public ThreadLocal<WebDriver> setup() throws IOException {
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\main\\resource\\GlobalData.Properties");
@@ -39,44 +32,46 @@ public class BaseClass {
 
 		if (browserName.contains("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+//			driver = new ChromeDriver();
+			threadSafeDriver.set(new ChromeDriver());
+
 		}
 
 		else if (browserName.contains("edge")) {
 			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+//			driver = new EdgeDriver();
+			threadSafeDriver.set(new EdgeDriver());
 		} else if (browserName.contains("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
+//			driver = new FirefoxDriver();
+			threadSafeDriver.set(new FirefoxDriver());
 		}
 
-		driver.get(baseURL);
+		return threadSafeDriver;
+
+	}
+
+	public WebDriver initializeBrowser() throws IOException {
+
+		driver = setup().get();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
+		return driver;
+	}
+
+	@BeforeMethod
+	public HomePage LaunchApplication() throws IOException {
+		driver = initializeBrowser();
+		homePage = new HomePage(driver);
+		homePage.goTo();
+		return homePage;
 	}
 
 	@AfterMethod
-	public void tearDown() {
-		driver.quit();
-	}
+	public void tearDown() throws IOException {
 
-	
-	public static ExtentReports setupExtentReport() {
+		driver.close();
 
-		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyy HH-mm-ss");
-		Date date = new Date();
-		String actualDate = format.format(date);
-		String reportPath = System.getProperty("user.dir") + "/Reports/ExecutionReport_" + actualDate + ".html";
-		ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath);
-		extent = new ExtentReports();
-
-		extent.attachReporter(sparkReporter);
-		extent.setSystemInfo("Tester Name", "Karteek");
-
-		sparkReporter.config().setDocumentTitle("Test Execution Report");
-		sparkReporter.config().setTheme(Theme.DARK);
-		sparkReporter.config().setReportName("QE Test Report");
-
-		return extent;
 	}
 
 }

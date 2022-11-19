@@ -10,6 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
 public class AbstractClass {
 
 	public WebDriver driver;
@@ -32,6 +35,17 @@ public class AbstractClass {
 
 	public void checkIfElementIsDisplayed(WebElement elementtoCheck) {
 		Assert.assertTrue(elementtoCheck.isDisplayed());
+	}
+	
+	public static ExtentReports getReportObject() {
+		String path = System.getProperty("user.dir") + "//reports/index.html";
+		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
+		reporter.config().setReportName("Karteek Test reports");
+		reporter.config().setDocumentTitle("Test Results");
+		ExtentReports reports = new ExtentReports();
+		reports.attachReporter(reporter);
+		reports.setSystemInfo("Tester name", "karteek");
+		return reports;
 	}
 
 }
