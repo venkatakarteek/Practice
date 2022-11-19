@@ -19,7 +19,7 @@ public class BaseClass {
 
 	public WebDriver driver;
 
-	public ThreadLocal<WebDriver> threadSafeDriver = new ThreadLocal<>();
+	public ThreadLocal<WebDriver> threadSafeDriver = new ThreadLocal<WebDriver>();
 	public HomePage homePage;
 
 	public ThreadLocal<WebDriver> setup() throws IOException {
@@ -62,6 +62,7 @@ public class BaseClass {
 	@BeforeMethod
 	public HomePage LaunchApplication() throws IOException {
 		driver = initializeBrowser();
+
 		homePage = new HomePage(driver);
 		homePage.goTo();
 		return homePage;
