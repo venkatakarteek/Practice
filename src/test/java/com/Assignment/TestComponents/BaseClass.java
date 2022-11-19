@@ -3,19 +3,13 @@ package com.Assignment.TestComponents;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Date;
 import java.util.Properties;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -28,8 +22,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
-	//going to refactor
-	//rebasing
+	
 	public String baseURL = System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html";
 	public WebDriver driver;
 	public static ExtentReports extent;
@@ -66,21 +59,7 @@ public class BaseClass {
 		driver.quit();
 	}
 
-	public void ExplicitWait(WebElement ele) {
-		WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(60));
-
-		w.until(ExpectedConditions.visibilityOf(ele));
-	}
-
-	public void ScrolltotheElement(WebElement toelement) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true);", toelement);
-	}
-
-	public void checkIfElementIsDisplayed(WebElement elementtoCheck) {
-		Assert.assertTrue(elementtoCheck.isDisplayed());
-	}
-
+	
 	public static ExtentReports setupExtentReport() {
 
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyy HH-mm-ss");

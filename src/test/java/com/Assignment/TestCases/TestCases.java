@@ -10,12 +10,13 @@ public class TestCases extends BaseClass {
 	@Test
 	public void Test1() {
 
+		
 		HomePage homePage = new HomePage(driver);
-		checkIfElementIsDisplayed(homePage.emailElement);
+		homePage.checkIfElementIsDisplayed(homePage.emailElement);
 		test.log(Status.PASS, homePage.emailElement.getAttribute("type") + " element is present");
-		checkIfElementIsDisplayed(homePage.passwordElement);
+		homePage.checkIfElementIsDisplayed(homePage.passwordElement);
 		test.log(Status.PASS, homePage.passwordElement.getAttribute("type") + " element is present");
-		checkIfElementIsDisplayed(homePage.signInElement);
+		homePage.checkIfElementIsDisplayed(homePage.signInElement);
 		test.log(Status.PASS, homePage.signInElement.getText() + " element is present");
 		homePage.emailElement.sendKeys("karteek@gmail.com");
 		homePage.passwordElement.sendKeys("******");
@@ -39,7 +40,7 @@ public class TestCases extends BaseClass {
 	public void Test3() throws InterruptedException {
 
 		HomePage homePage = new HomePage(driver);
-		ScrolltotheElement(homePage.dropDownOption);
+		homePage.ScrolltotheElement(homePage.dropDownOption);
 		homePage.checkDefaultSelectedValue();
 		test.log(Status.PASS, "\"Option 1\" is the default selected value");
 		homePage.selectOption3();
@@ -49,7 +50,7 @@ public class TestCases extends BaseClass {
 	public void Test4() {
 
 		HomePage homePage = new HomePage(driver);
-		ScrolltotheElement(homePage.enabledButtonElement);
+		homePage.ScrolltotheElement(homePage.enabledButtonElement);
 		homePage.checkIfFirstButtonisEnabled();
 		test.log(Status.PASS, "First button is Enabled");
 		homePage.checkIfButtonisDisabled(homePage.disabledButtonElement);
@@ -60,8 +61,8 @@ public class TestCases extends BaseClass {
 	public void Test5() {
 
 		HomePage homePage = new HomePage(driver);
-		ScrolltotheElement(homePage.test5Div);
-		ExplicitWait(homePage.test5Button);
+		homePage.ScrolltotheElement(homePage.test5Div);
+		homePage.ExplicitWait(homePage.test5Button);
 		homePage.clickOnButton();
 		test.log(Status.PASS, "Success message is displayed");
 		homePage.checkIfButtonisDisabled(homePage.test5Button);
@@ -72,7 +73,7 @@ public class TestCases extends BaseClass {
 	public void Test6() {
 
 		HomePage homePage = new HomePage(driver);
-		ScrolltotheElement(homePage.test6Div);
+		homePage.ScrolltotheElement(homePage.test6Div);
 		String cellValue = homePage.findValueOfCell(driver, 2, 2);
 		test.log(Status.PASS, "Value of the cell is " + cellValue);
 	}

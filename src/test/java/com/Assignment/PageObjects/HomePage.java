@@ -9,15 +9,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import com.Assignment.TestComponents.BaseClass;
+import com.Assignment.TestComponents.AbstractClass;
 
-public class HomePage extends BaseClass {
+public class HomePage extends AbstractClass {
 
 	public WebDriver driver;
 
 	public HomePage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+
 	}
 
 	@FindBy(id = "inputEmail")
@@ -58,6 +60,7 @@ public class HomePage extends BaseClass {
 
 	@FindBy(id = "test-6-div")
 	public WebElement test6Div;
+	
 
 	public void checkValuesInListGroup() {
 
