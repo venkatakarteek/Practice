@@ -28,6 +28,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseClass {
 
+	//going to refactor
 	public String baseURL = System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html";
 	public WebDriver driver;
 	public static ExtentReports extent;
