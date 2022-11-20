@@ -24,7 +24,7 @@ public class TestCases extends BaseClass {
 
 	}
 
-	@Test
+	@Test(groups = {"Regression"})
 	public void Test2() {
 
 		
@@ -47,7 +47,7 @@ public class TestCases extends BaseClass {
 		homePage.selectOption3();
 	}
 
-	@Test
+	@Test(groups = {"Regression"})
 	public void Test4() {
 
 		
