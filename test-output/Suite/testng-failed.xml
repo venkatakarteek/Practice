@@ -8,7 +8,6 @@
           <include name="tearDown"/>
           <include name="LaunchApplication"/>
           <include name="Test1"/>
-          <include name="Test2"/>
           <include name="Test3"/>
           <include name="Test4"/>
           <include name="Test5"/>
