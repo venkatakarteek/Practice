@@ -19,10 +19,10 @@ public class BaseClass {
 
 	public WebDriver driver;
 
-	public ThreadLocal<WebDriver> threadSafeDriver = new ThreadLocal<WebDriver>();
+	protected static ThreadLocal<WebDriver> threadSafeDriver = new ThreadLocal<>();
 	public HomePage homePage;
 
-	public ThreadLocal<WebDriver> setup() throws IOException {
+	public WebDriver browsersetup() throws IOException {
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream(
 				System.getProperty("user.dir") + "\\src\\main\\resource\\GlobalData.Properties");
@@ -32,47 +32,41 @@ public class BaseClass {
 
 		if (browserName.contains("chrome")) {
 			WebDriverManager.chromedriver().setup();
-//			driver = new ChromeDriver();
-			threadSafeDriver.set(new ChromeDriver());
+			driver = new ChromeDriver();
 
 		}
 
 		else if (browserName.contains("edge")) {
 			WebDriverManager.edgedriver().setup();
-//			driver = new EdgeDriver();
-			threadSafeDriver.set(new EdgeDriver());
+			driver = new EdgeDriver();
+
 		} else if (browserName.contains("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-//			driver = new FirefoxDriver();
-			threadSafeDriver.set(new FirefoxDriver());
+			driver = new FirefoxDriver();
+
 		}
-
-		return threadSafeDriver;
-
-	}
-
-	public WebDriver initializeBrowser() throws IOException {
-
-		driver = setup().get();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
 		return driver;
 	}
 
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	public HomePage LaunchApplication() throws IOException {
-		driver = initializeBrowser();
-
+		driver = browsersetup();
+		threadSafeDriver.set(driver);
+		System.out.println("Before Method Thread ID: " + Thread.currentThread().getId());
+		driver = threadSafeDriver.get();
 		homePage = new HomePage(driver);
 		homePage.goTo();
 		return homePage;
 	}
 
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws IOException {
 
 		driver.close();
-
+		System.out.println("After Method Thread ID: " + Thread.currentThread().getId());
+		threadSafeDriver.remove();
 	}
 
 }
