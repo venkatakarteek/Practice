@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-	<test thread-count="6" name="Test" parallel="methods">
+<suite name="Suite" parallel="classes" thread-count="6">
+	<listeners>
+		<listener class-name="com.Assignment.TestComponents.ListenersImplementation"></listener>
+	</listeners>
+	<test name="Test1" thread-count="6">
 		<classes>
-
-			<class name="com.Assignment.TestCases.TestCases" />
-
+			<class name="com.Assignment.TestCases.Test4" />
+			<class name="com.Assignment.TestCases.Test3" />
+			<class name="com.Assignment.TestCases.Test2" />
 		</classes>
 	</test> <!-- Test -->
+	<test name="Test2" thread-count="6">
+		<classes>
+			<class name="com.Assignment.TestCases.Test1" />
+			<class name="com.Assignment.TestCases.Test6" />
+			<class name="com.Assignment.TestCases.Test5" />
+		</classes>
+	</test>
 </suite> <!-- Suite -->

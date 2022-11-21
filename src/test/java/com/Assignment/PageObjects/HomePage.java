@@ -62,7 +62,15 @@ public class HomePage extends AbstractClass {
 	public WebElement test6Div;
 	
 	public void goTo() {
-		driver.get(System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html");
+		
+		String url=System.getProperty("user.dir") + "\\src\\main\\resource\\QE-index.html";
+		driver.get(url);
+	}
+	
+	public void emailIDIsDisplayed()
+	{
+	  Boolean element =	emailElement.isDisplayed();
+	  Assert.assertTrue(element);
 	}
 	
 	public void checkValuesInListGroup() {

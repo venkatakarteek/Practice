@@ -4,11 +4,10 @@ import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import com.Assignment.PageObjects.HomePage;
 import com.Assignment.TestComponents.BaseClass;
-import com.aventstack.extentreports.Status;
 
 public class TestCases extends BaseClass {
+
 	@Test
 	public void Test1() {
 
@@ -25,7 +24,6 @@ public class TestCases extends BaseClass {
 	public void Test2() {
 
 		System.out.println("Test2 Method Thread ID: " + Thread.currentThread().getId());
-
 		homePage.checkValuesInListGroup();
 		homePage.checkSecondListItem();
 		homePage.checkSecondListItemBadgeValue();

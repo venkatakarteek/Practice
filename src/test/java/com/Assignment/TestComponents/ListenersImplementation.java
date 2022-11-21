@@ -8,12 +8,13 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
-
 public class ListenersImplementation extends BaseClass implements ITestListener {
 
-	ExtentTest test;
-	ExtentReports reports = AbstractClass.getReportObject();
-	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
+	public ExtentTest test;
+	public ExtentReports reports;
+	public ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
+	
+
 	@Override
 	public void onTestStart(ITestResult result) {
 
@@ -54,6 +55,7 @@ public class ListenersImplementation extends BaseClass implements ITestListener 
 	@Override
 	public void onStart(ITestContext context) {
 		ITestListener.super.onStart(context);
+		reports = AbstractClass.getReportObject();
 	}
 
 	@Override
