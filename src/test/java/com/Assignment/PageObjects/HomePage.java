@@ -19,7 +19,6 @@ public class HomePage extends AbstractClass {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-
 	}
 
 	@FindBy(id = "inputEmail")

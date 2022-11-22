@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import org.testng.annotations.Test;
 
-import com.Assignment.PageObjects.HomePage;
 import com.Assignment.TestComponents.BaseClass;
-import com.aventstack.extentreports.Status;
 
 public class TestCases extends BaseClass {
 	@Test
